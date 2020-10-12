@@ -1,6 +1,6 @@
 import React from 'react';
 import { CardList } from './components/card-list/card-list.components';
-import {SearchBox} from './components/search-box/search-box.compoents';
+import { SearchBox } from './components/search-box/search-box.compoents';
 import './App.css';
 
 class App extends React.Component {
@@ -17,24 +17,24 @@ class App extends React.Component {
       .then(data => this.setState({ monsters: data }))
       .catch(err => console.log(err))
   }
-  searchMonster(e){
-    let search = e.target.value
-    const monstersSearch = this.state.monsters.filter(monster => monster.name.includes(search));
-    this.setState({monsters:monstersSearch, search})
+  handleChane = e => {
+    // this.setState({search: e.target.value})
+    this.setState({ search: e.target.value })
+
   }
   render() {
-    const {search, monsters} = this.state
+    const { search, monsters } = this.state
     const filterMonsters = monsters.filter(monster => monster.name.toLowerCase().includes(search.toLowerCase()))
-
 
     return (
       <div className="App">
+        <h1>Monsters Rolodex</h1>
         <SearchBox
           placeholder="search monsters"
-          handleChane={ e=> this.setState({search: e.target.value})}
+          handleChane={this.handleChane}
         />
         <CardList monsters={filterMonsters} />
-        
+
       </div>
     );
   }
